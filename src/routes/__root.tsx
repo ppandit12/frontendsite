@@ -1,7 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-
-import appCss from "../styles.css?url";
-import logoUrl from "../assets/logo.png?url";
+import { Outlet, Link, createRootRoute } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -26,51 +23,14 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Stumpworks | Professional Stump Grinding" },
-      { name: "description", content: "Fast, safe, and affordable stump grinding services. Get your yard back today." },
-      { name: "author", content: "Stumpworks" },
-      { property: "og:title", content: "Stumpworks | Professional Stump Grinding" },
-      { property: "og:description", content: "Fast, safe, and affordable stump grinding services. Get your yard back today." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Stumpworks" },
-      { name: "twitter:title", content: "Stumpworks | Professional Stump Grinding" },
-      { name: "twitter:description", content: "Fast, safe, and affordable stump grinding services. Get your yard back today." },
-      { property: "og:image", content: logoUrl },
-      { name: "twitter:image", content: logoUrl },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/png", sizes: "32x32", href: logoUrl },
-      { rel: "icon", type: "image/png", sizes: "192x192", href: logoUrl },
-      { rel: "apple-touch-icon", sizes: "180x180", href: logoUrl },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body suppressHydrationWarning>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 }
