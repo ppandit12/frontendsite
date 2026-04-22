@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Trees, Facebook, Instagram, Twitter } from "lucide-react";
 
 export function Footer() {
@@ -20,9 +21,9 @@ export function Footer() {
         <div>
           <h4 className="font-display text-sm tracking-widest uppercase text-[var(--beige)]">Quick Links</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/70">
-            <li><a href="/#services" className="hover:text-white">Services</a></li>
-            <li><a href="/#results" className="hover:text-white">Results</a></li>
-            <li><a href="/#testimonials" className="hover:text-white">Reviews</a></li>
+            <li><Link to="/" hash="services" className="hover:text-white">Services</Link></li>
+            <li><Link to="/" hash="results" className="hover:text-white">Results</Link></li>
+            <li><Link to="/" hash="testimonials" className="hover:text-white">Reviews</Link></li>
           </ul>
         </div>
         <div>
