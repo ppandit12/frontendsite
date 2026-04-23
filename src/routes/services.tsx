@@ -1,153 +1,252 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { StickyCTA } from "@/components/site/StickyCTA";
 import { Reveal } from "@/components/site/Reveal";
-import { Trees, Scissors, Sparkles, Zap, ArrowRight } from "lucide-react";
+import { WoodChips } from "@/components/site/WoodChips";
+import {
+  Trees, Scissors, Sparkles, Zap, ArrowRight, CheckCircle2,
+  ShieldCheck, Clock, Phone, MapPin, Star, Award,
+} from "lucide-react";
+
+// Assets
+import heroImg from "@/assets/hero-grinder.jpg";
+import beforeImg from "@/assets/before-stump.jpg";
+import afterImg from "@/assets/after-clean.jpg";
+import crewImg from "@/assets/crew.jpg";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services | Stumpworks" },
-      { name: "description", content: "Professional stump grinding and yard solutions." },
+      { title: "Services | Apex Stump Grinding & Removal" },
+      { name: "description", content: "Professional stump grinding, root removal, and yard cleanup services in the GTA." },
     ],
   }),
   component: ServicesPage,
 });
+
+const QUOTE_URL = "https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new";
 
 const SERVICE_ITEMS = [
   {
     id: "stump-grinding",
     icon: Trees,
     title: "Stump Grinding",
-    desc: "Industrial-grade grinders pulverize stumps below grade, turning them into useful mulch.",
-    features: ["Below-grade grinding", "Mulch production", "Minimal site impact"],
+    tagline: "Precision Removal",
+    desc: "Our industrial-grade grinders pulverize stumps 6-12 inches below grade, turning them into useful mulch. We handle any size, from small garden stumps to massive forest remnants.",
+    features: ["Below-grade grinding", "Mulch production", "Minimal site impact", "Any stump size"],
+    image: heroImg,
   },
   {
     id: "root-removal",
     icon: Scissors,
     title: "Root Removal",
-    desc: "Extract surface and lateral roots that ruin lawns, cause trip hazards, or damage foundations.",
-    features: ["Surface root extraction", "Lawn protection", "Safety focused"],
+    tagline: "Landscape Protection",
+    desc: "Exposed roots can damage foundations, crack driveways, and create trip hazards. We safely extract surface and lateral roots while preserving your lawn's health.",
+    features: ["Surface root extraction", "Foundation safety", "Lawn preservation", "Hazard reduction"],
+    image: beforeImg,
   },
   {
     id: "debris-cleanup",
     icon: Sparkles,
     title: "Debris Cleanup",
-    desc: "Full haul-away of chips, soil, and debris. We leave your yard ready for replanting.",
-    features: ["Site clearing", "Mulch hauling", "Yard restoration"],
+    tagline: "Zero-Mess Guarantee",
+    desc: "We don't just leave a pile of chips. Our team provides full haul-away services, backfilling with clean topsoil and leaving your yard ready for immediate replanting.",
+    features: ["Full chip haul-away", "Topsoil backfilling", "Site restoration", "Clean workmanship"],
+    image: afterImg,
   },
   {
     id: "emergency-service",
     icon: Zap,
     title: "Emergency Service",
-    desc: "Storm damage? We respond quickly to clear fallen trees and stumps that block access.",
-    features: ["24/7 availability", "Fast response", "Safe clearing"],
+    tagline: "Storm Response",
+    desc: "Storm damage doesn't wait. We provide priority emergency response for fallen trees and uprooted stumps that block driveways or pose immediate risks.",
+    features: ["24/7 Availability", "Fast response", "Safe clearing", "Insurance-ready"],
+    image: crewImg,
   },
 ];
 
-const SERVICE_AREAS = [
-  {
-    city: "Toronto (West & High Park)",
-    neighborhoods: ["High Park North", "Swansea", "Bloor West Village", "Roncesvalles", "The Junction", "Junction Triangle", "Parkdale", "Baby Point", "Old Mill"]
-  },
-  {
-    city: "Etobicoke",
-    neighborhoods: ["The Kingsway", "Edenbridge - Humber Valley", "Princess Gardens", "Markland Wood", "Islington-City Centre", "Stonegate-Queensway", "Mimico", "New Toronto", "Long Branch", "Alderwood"]
-  },
-  {
-    city: "Mississauga",
-    neighborhoods: ["Lorne Park", "Mineola", "Port Credit", "Lakeview", "Clarkson", "Streetsville", "Erin Mills", "Meadowvale", "Applewood", "Cooksville", "Churchill Meadows", "Lisgar"]
-  },
-  {
-    city: "Brampton",
-    neighborhoods: ["Credit Valley", "Mount Pleasant", "Bramalea", "Peel Village", "Heart Lake", "Snelgrove", "Churchville", "Castlemore", "Fletcher's Creek"]
-  },
-  {
-    city: "Oakville",
-    neighborhoods: ["Old Oakville", "South East Oakville", "Bronte Village", "Glen Abbey", "Joshua Creek", "Clearview", "River Oaks", "West Oak Trails", "Falgarwood"]
-  },
-  {
-    city: "Burlington",
-    neighborhoods: ["Roseland", "Shoreacres", "Aldershot", "Tyandaga", "Millcroft", "Alton Village", "The Orchard", "Elizabeth Gardens", "Headon Forest"]
-  }
-];
+
+
+function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        let start = 0;
+        const duration = 2000;
+        const startTime = performance.now();
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          setCount(Math.floor(progress * end));
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+        io.unobserve(el);
+      }
+    }, { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [end]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 function ServicesPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
-      <main className="pt-32">
-        <section className="py-24 px-6">
-          <div className="max-w-7xl mx-auto">
-            <Reveal className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Our Expertise</span>
-              <h1 className="mt-4 text-5xl sm:text-6xl font-display text-primary uppercase leading-tight">
-                Professional Stump <br /> & Yard Solutions
+      <main>
+        {/* Hero Section */}
+        <section className="relative pt-32 pb-20 overflow-hidden">
+          <div className="absolute inset-0 -z-10" style={{ background: "var(--beige)" }} />
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              background: "linear-gradient(135deg, color-mix(in oklab, var(--beige) 90%, transparent) 0%, color-mix(in oklab, var(--primary) 30%, transparent) 100%)",
+            }}
+          />
+          <WoodChips count={15} />
+          
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <motion.div
+              initial={{ y: -200, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase mb-6">
+                <Sparkles size={14} /> Our Expertise
+              </span>
+              <h1 className="text-5xl sm:text-7xl font-display text-primary uppercase leading-[1.05] max-w-4xl mx-auto">
+                Specialized Stump <br /> & Yard Clearance
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                We offer a range of specialized services to restore the beauty and safety of your outdoor space.
+              <p className="mt-8 text-lg text-foreground/80 max-w-2xl mx-auto">
+                Reclaim your outdoor space with our professional-grade removal services. 
+                We don't just grind stumps; we provide complete site preparation and 
+                landscape restoration for homeowners and contractors alike.
               </p>
-            </Reveal>
+            </motion.div>
+            
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {SERVICE_ITEMS.map((service, i) => (
-                <Reveal key={service.id} delay={i * 100} className="bg-card border border-border rounded-3xl p-8 hover:shadow-lg transition-shadow">
-                  <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6">
-                    <service.icon size={32} />
+
+
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="bg-primary py-12">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: 500, suffix: "+", label: "Stumps Removed" },
+              { value: 98, suffix: "%", label: "Happy Clients" },
+              { value: 15, suffix: "+", label: "Years Experience" },
+              { value: 24, suffix: "hr", label: "Response Time" },
+            ].map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 100}>
+                <div className="text-4xl sm:text-5xl font-display text-[var(--beige)]">
+                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="text-white/60 text-xs uppercase tracking-widest mt-2">{stat.label}</div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* Detailed Services */}
+        <section className="py-24 bg-background">
+          <div className="max-w-7xl mx-auto px-6 space-y-32">
+            {SERVICE_ITEMS.map((service, i) => (
+              <div key={service.id} className={`flex flex-col ${i % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"} gap-16 items-center`}>
+                <Reveal className="flex-1 w-full" delay={100}>
+                  <div className="relative group">
+                    <div className="absolute -inset-4 bg-[var(--beige)] rounded-3xl -z-10 group-hover:bg-[var(--beige)]/60 transition-colors" />
+                    <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-[var(--shadow-rugged)]">
+                      <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                    {/* Spinning blade decoration */}
+                    <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full border-4 border-[var(--brown)]/20 border-dashed animate-spin-slow pointer-events-none" />
                   </div>
-                  <h2 className="text-3xl font-display text-charcoal uppercase mb-4">{service.title}</h2>
-                  <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
+                </Reveal>
+
+                <Reveal className="flex-1" delay={200}>
+                  <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{service.tagline}</span>
+                  <h2 className="text-4xl sm:text-5xl text-primary uppercase font-display mt-4 mb-6">{service.title}</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                     {service.desc}
                   </p>
-                  <ul className="space-y-3 mb-8">
-                    {service.features.map((feat) => (
-                      <li key={feat} className="flex items-center gap-2 text-sm font-medium text-charcoal/80">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        {feat}
+                  <ul className="grid sm:grid-cols-2 gap-4 mb-10">
+                    {service.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-sm font-medium text-charcoal/80">
+                        <CheckCircle2 size={18} className="text-primary flex-shrink-0" />
+                        {f}
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href="https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new"
-                    className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm hover:gap-3 transition-all"
-                  >
-                    Book this service <ArrowRight size={18} />
-                  </a>
+                  <a href={QUOTE_URL} className="btn-primary">Book This Service <ArrowRight size={18} /></a>
+                </Reveal>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section className="py-24 bg-charcoal text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+          <div className="absolute inset-x-0 top-0 h-px sweep-border" />
+          
+          <div className="max-w-7xl mx-auto px-6 relative">
+            <Reveal className="text-center mb-16">
+              <span className="text-xs font-bold tracking-[0.25em] text-[var(--beige)] uppercase">Simple & Seamless</span>
+              <h2 className="text-4xl sm:text-6xl uppercase font-display mt-4">Our Service Process</h2>
+            </Reveal>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
+              {[
+                { n: "01", title: "Request Quote", d: "Send photos or address for a free estimate." },
+                { n: "02", title: "Expert Arrival", d: "Our crew arrives on time with commercial gear." },
+                { n: "03", title: "The Grind", d: "Precision grinding with total site protection." },
+                { n: "04", title: "Full Cleanup", d: "Haul-away and backfill — ready for grass." },
+              ].map((step, i) => (
+                <Reveal key={step.n} delay={i * 150} className="relative group text-center lg:text-left">
+                  <div className="w-16 h-16 rounded-2xl bg-[var(--brown)] flex items-center justify-center text-2xl font-display mb-6 mx-auto lg:mx-0 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                    {step.n}
+                  </div>
+                  <h4 className="text-xl font-display uppercase mb-2">{step.title}</h4>
+                  <p className="text-white/60 text-sm leading-relaxed">{step.d}</p>
+                  {i < 3 && <div className="hidden lg:block absolute top-8 left-20 w-full h-px bg-white/10" />}
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
 
-            <section className="py-24 mt-16 border-t border-border">
-              <Reveal className="text-center max-w-3xl mx-auto mb-16">
-                <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Coverage</span>
-                <h2 className="mt-4 text-4xl sm:text-5xl font-display text-primary uppercase">Areas We Serve</h2>
-                <p className="mt-4 text-muted-foreground">
-                  Providing professional stump grinding across the Greater Toronto Area and beyond.
-                </p>
-              </Reveal>
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                {SERVICE_AREAS.map((area, i) => (
-                  <Reveal key={area.city} delay={i * 50} className="space-y-4">
-                    <h3 className="font-display text-2xl text-primary uppercase border-b border-[var(--brown)]/20 pb-2">
-                      {area.city}
-                    </h3>
-                    <ul className="grid grid-cols-1 gap-2">
-                      {area.neighborhoods.map((n) => (
-                        <li key={n} className="text-sm text-muted-foreground flex items-center gap-2">
-                          <div className="w-1 h-1 rounded-full bg-[var(--brown)]/40" />
-                          {n}
-                        </li>
-                      ))}
-                    </ul>
-                  </Reveal>
-                ))}
+
+        {/* Final CTA */}
+        <section className="py-24 bg-background border-t border-border">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <Reveal>
+              <h2 className="text-5xl sm:text-7xl font-display text-primary uppercase leading-tight">Ready to clear <br /> the way?</h2>
+              <p className="mt-8 text-xl text-muted-foreground">
+                Get your property back to its best. No job is too large or too small for our expert crew.
+              </p>
+              <div className="mt-12 flex flex-wrap justify-center gap-4">
+                <a href={QUOTE_URL} className="btn-primary cta-pulse">Request My Free Quote <ArrowRight size={18} /></a>
+                <a href="tel:+14162344298" className="btn-outline"><Phone size={16} /> (416) 234-4298</a>
               </div>
-            </section>
+            </Reveal>
           </div>
         </section>
       </main>
       <Footer />
+      <StickyCTA />
     </div>
   );
 }

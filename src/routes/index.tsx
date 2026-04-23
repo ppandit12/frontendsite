@@ -17,6 +17,7 @@ import { ResultsSection } from "@/components/site/ResultsSection";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { StickyCTA } from "@/components/site/StickyCTA";
+import { MapSection } from "@/components/site/MapSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -99,7 +100,7 @@ function Hero() {
             <a href="https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new" rel="noopener noreferrer" className="btn-primary">
               Get Quote Now <ArrowRight size={18} />
             </a>
-            <a href="tel:+14612344291" className="btn-outline">
+            <a href="tel:+14162344298" className="btn-outline">
               <Phone size={16} /> Call Now
             </a>
           </div>
@@ -351,65 +352,6 @@ function Testimonials() {
   );
 }
 
-function ServiceArea() {
-  const markers = [
-    { x: 25, y: 40, label: "Riverside" },
-    { x: 50, y: 30, label: "Oakwood" },
-    { x: 70, y: 55, label: "Pinehurst" },
-    { x: 40, y: 65, label: "Greendale" },
-    { x: 65, y: 25, label: "Maple Hills" },
-  ];
-  return (
-    <section id="service-area" className="py-24" style={{ background: "var(--beige)" }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <Reveal className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Coverage</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Serving your area</h2>
-        </Reveal>
-        <Reveal>
-          <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border-2 border-[var(--brown)]/20 shadow-[var(--shadow-card)]"
-            style={{
-              background: "radial-gradient(circle at 30% 40%, color-mix(in oklab, var(--primary) 40%, var(--beige)) 0%, var(--beige) 60%)",
-            }}
-          >
-            {/* faux roads */}
-            <svg className="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 100 56" preserveAspectRatio="none">
-              <path d="M0,30 Q30,10 60,35 T100,28" stroke="white" strokeWidth="0.4" fill="none" />
-              <path d="M0,45 Q40,40 70,50 T100,42" stroke="white" strokeWidth="0.3" fill="none" />
-              <path d="M20,0 Q25,30 45,56" stroke="white" strokeWidth="0.3" fill="none" />
-              <path d="M75,0 Q70,25 85,56" stroke="white" strokeWidth="0.3" fill="none" />
-            </svg>
-            {markers.map((m, i) => (
-              <div
-                key={m.label}
-                className="absolute"
-                style={{
-                  left: `${m.x}%`,
-                  top: `${m.y}%`,
-                  animation: `marker-drop 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards`,
-                  animationDelay: `${0.2 + i * 0.15}s`,
-                  opacity: 0,
-                }}
-              >
-                <div className="relative -translate-x-1/2 -translate-y-full">
-                  <div
-                    className="w-8 h-8 rounded-full bg-[var(--brown)] text-white flex items-center justify-center shadow-lg"
-                    style={{ animation: "marker-pulse 2.5s ease-in-out infinite" }}
-                  >
-                    <MapPin size={16} />
-                  </div>
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 text-xs font-bold text-charcoal whitespace-nowrap bg-white/80 px-2 py-0.5 rounded">
-                    {m.label}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
 
 function Blog() {
   const posts = [
@@ -480,8 +422,8 @@ function FinalCTA() {
             <a href="https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new" rel="noopener noreferrer" className="btn-primary cta-pulse">
               Get Quote Now <ArrowRight size={18} />
             </a>
-            <a href="tel:+14612344291" className="btn-outline" style={{ color: "var(--beige)", borderColor: "var(--beige)" }}>
-              <Phone size={16} /> (461) 234-4291
+            <a href="tel:+14162344298" className="btn-outline" style={{ color: "var(--beige)", borderColor: "var(--beige)" }}>
+              <Phone size={16} /> (416) 234-4298
             </a>
           </div>
         </Reveal>
@@ -501,7 +443,7 @@ function Index() {
         <ResultsSection />
         <WhyUs />
         <Testimonials />
-        <ServiceArea />
+        <MapSection />
         <Blog />
         <FinalCTA />
       </main>

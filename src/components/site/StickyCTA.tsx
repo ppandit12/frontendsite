@@ -13,7 +13,7 @@ export function StickyCTA() {
         Get Quote Now
       </a>
       <a
-        href="tel:+14612344291"
+        href="tel:+14162344298"
         className="sm:hidden fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-[var(--shadow-rugged)] cta-pulse"
         aria-label="Call now"
       >

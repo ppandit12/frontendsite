@@ -38,7 +38,7 @@ export function Footer() {
         <div>
           <h4 className="font-display text-sm tracking-widest uppercase text-[var(--beige)]">Contact</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/70">
-            <li className="flex items-center gap-2"><Phone size={14} /> (461) 234-4291</li>
+            <li className="flex items-center gap-2"><Phone size={14} /> (416) 234-4298</li>
             <li className="flex items-center gap-2"><MapPin size={14} /> Serving the Tri-County Area</li>
             <li>chris@apexstump.ca</li>
           </ul>

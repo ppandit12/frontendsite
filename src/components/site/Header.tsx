@@ -15,12 +15,12 @@ export function Header() {
           <Link to="/services" className="hover:text-primary transition">Services</Link>
           <Link to="/about" className="hover:text-primary transition">About</Link>
           <Link to="/gallery" className="hover:text-primary transition">Gallery</Link>
-          <Link to="/" hash="service-area" className="hover:text-primary transition">Areas We Serve</Link>
+          <Link to="/areas-we-serve" className="hover:text-primary transition">Areas We Serve</Link>
           <Link to="/" hash="testimonials" className="hover:text-primary transition">Reviews</Link>
           <a href={QUOTE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">Get Quote Now</a>
         </nav>
-        <a href="tel:+14612344291" className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[var(--brown)]">
-          <Phone size={16} /> (461) 234-4291
+        <a href="tel:+14162344298" className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[var(--brown)]">
+          <Phone size={16} /> (416) 234-4298
         </a>
       </div>
     </header>

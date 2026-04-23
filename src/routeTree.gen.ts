@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as AreasWeServeRouteImport } from './routes/areas-we-serve'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AreasWeServeRoute = AreasWeServeRouteImport.update({
+  id: '/areas-we-serve',
+  path: '/areas-we-serve',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/areas-we-serve': typeof AreasWeServeRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/areas-we-serve': typeof AreasWeServeRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/areas-we-serve': typeof AreasWeServeRoute
   '/gallery': typeof GalleryRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/gallery' | '/services'
+  fullPaths: '/' | '/about' | '/areas-we-serve' | '/gallery' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/gallery' | '/services'
-  id: '__root__' | '/' | '/about' | '/gallery' | '/services'
+  to: '/' | '/about' | '/areas-we-serve' | '/gallery' | '/services'
+  id: '__root__' | '/' | '/about' | '/areas-we-serve' | '/gallery' | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AreasWeServeRoute: typeof AreasWeServeRoute
   GalleryRoute: typeof GalleryRoute
   ServicesRoute: typeof ServicesRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/gallery'
       fullPath: '/gallery'
       preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/areas-we-serve': {
+      id: '/areas-we-serve'
+      path: '/areas-we-serve'
+      fullPath: '/areas-we-serve'
+      preLoaderRoute: typeof AreasWeServeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AreasWeServeRoute: AreasWeServeRoute,
   GalleryRoute: GalleryRoute,
   ServicesRoute: ServicesRoute,
 }
