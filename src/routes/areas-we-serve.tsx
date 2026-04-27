@@ -18,34 +18,44 @@ export const Route = createFileRoute("/areas-we-serve")({
   component: AreasPage,
 });
 
-const QUOTE_URL = "https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new";
+const QUOTE_URL = "https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new";
 
 const SERVICE_AREAS = [
   {
-    city: "Toronto (West & High Park)",
-    neighborhoods: ["High Park North", "Swansea", "Bloor West Village", "Roncesvalles", "The Junction", "Junction Triangle", "Parkdale", "Baby Point", "Old Mill"],
+    city: "West Toronto",
+    neighborhoods: [
+      "Baby Point", "Bloor West Village", "High Park", "High Park North", 
+      "Lambton", "Parkdale", "Roncesvalles", "Runnymede", "Swansea", 
+      "The Junction", "West Bend"
+    ],
   },
   {
     city: "Etobicoke",
-    neighborhoods: ["The Kingsway", "Humber Valley", "Princess Gardens", "Markland Wood", "Mimico", "Long Branch", "Alderwood"],
+    neighborhoods: [
+      "Alderwood", "Chestnut Hills", "Eatonville", "Edenbridge", "Eringate", 
+      "Glen Agar", "Humber Bay", "Humber Heights - Westmount", "Humber Valley", 
+      "Islington", "Kingsview Village", "The Kingsway", "Lambton Mills", 
+      "Long Branch", "Markland Wood", "Mimico", "New Toronto", "Norseman Heights", 
+      "Old Mill", "Princess-Rosethorn", "The Queensway", "Richview", 
+      "Royal York Gardens", "Stonegate", "Sunnylea", "Thorncrest Village", 
+      "West Deane Park", "The West Mall", "The Westway", "Willowridge"
+    ],
   },
   {
     city: "Mississauga",
-    neighborhoods: ["Lorne Park", "Mineola", "Port Credit", "Lakeview", "Clarkson", "Streetsville", "Meadowvale"],
+    neighborhoods: [
+      "Applewood", "Birchwood", "Clarkson", "Cooksville", "Dixie", "Erindale", 
+      "Glen Leven", "Lakeview", "Lorne Park", "Mineola", "Mississauga Rd", 
+      "Mississauga Valley", "Park Royal", "Port Credit", "Rattray Park Estates", 
+      "Rockwood Village", "Sheridan", "Sherwood Forrest"
+    ],
   },
   {
-    city: "Brampton",
-    neighborhoods: ["Credit Valley", "Mount Pleasant", "Bramalea", "Peel Village", "Heart Lake", "Castlemore"],
-  },
-  {
-    city: "Oakville",
-    neighborhoods: ["Old Oakville", "Bronte Village", "Glen Abbey", "Joshua Creek", "West Oak Trails"],
-  },
-  {
-    city: "Burlington",
-    neighborhoods: ["Roseland", "Shoreacres", "Aldershot", "Tyandaga", "Millcroft", "The Orchard"],
+    city: "Other Regions",
+    neighborhoods: ["Brampton", "Oakville", "Burlington", "Milton", "Georgetown"],
   },
 ];
+
 
 function AreasPage() {
   return (
@@ -119,10 +129,12 @@ function AreasPage() {
           <div className="max-w-4xl mx-auto px-6 text-center">
             <Reveal>
               <h2 className="text-4xl sm:text-6xl uppercase font-display mb-8">Not on the list?</h2>
-              <p className="text-xl text-white/60 mb-12">
-                We frequently travel outside our primary service areas for larger projects. 
-                Contact us to see if we can help with your property.
+              <p className="text-xl text-white/60 mb-12 italic">
+                Don't see your neighborhood? We primarily focus on the historic canopies of Central & South Etobicoke, 
+                Mississauga, and High Park to ensure prompt service. For large-scale projects north of the 401, 
+                please contact us for a custom quote.
               </p>
+
               <div className="flex flex-wrap justify-center gap-4">
                 <a href={QUOTE_URL} className="btn-primary">Request a Quote <ArrowRight size={18} /></a>
                 <a href="tel:+14162344298" className="btn-outline" style={{ borderColor: 'var(--beige)', color: 'var(--beige)' }}>

@@ -4,7 +4,7 @@ import {
   Phone, ArrowRight, CheckCircle2, Star, MapPin, Trees, Scissors,
   Sparkles, Zap, ShieldCheck, Clock, Facebook, Instagram, Twitter,
 } from "lucide-react";
-import heroImg from "@/assets/hero-grinder.jpg";
+import heroImg from "@/assets/Hero Section Image.png";
 import beforeImg from "@/assets/before-stump.jpg";
 import afterImg from "@/assets/after-clean.jpg";
 import crewImg from "@/assets/why-us-team.png";
@@ -18,6 +18,8 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { StickyCTA } from "@/components/site/StickyCTA";
 import { MapSection } from "@/components/site/MapSection";
+import { AreasServed } from "@/components/site/AreasServed";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -97,7 +99,7 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-3 opacity-0"
             style={{ animation: "fade-up 0.7s ease forwards", animationDelay: "0.85s" }}
           >
-            <a href="https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new" rel="noopener noreferrer" className="btn-primary">
+            <a href="https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new" rel="noopener noreferrer" className="btn-primary">
               Get Quote Now <ArrowRight size={18} />
             </a>
             <a href="tel:+14162344298" className="btn-outline">
@@ -155,9 +157,10 @@ function Services() {
   const items = [
     { icon: Trees, title: "Stump Grinding", desc: "Industrial-grade grinders pulverize stumps below grade." },
     { icon: Scissors, title: "Root Removal", desc: "Extract surface and lateral roots that ruin lawns." },
-    { icon: Sparkles, title: "Debris Cleanup", desc: "Haul-away of chips, soil, and yard restoration." },
-    { icon: Zap, title: "Emergency Service", desc: "Storm damage? We respond within hours, not days." },
+    { icon: Sparkles, title: "Cleanup, Topsoil Backfilling & Levelling", desc: "Chip bagging or haul-away, soil backfill, and expert grading." },
   ];
+
+
   return (
     <section id="services" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
@@ -419,7 +422,7 @@ function FinalCTA() {
         </Reveal>
         <Reveal delay={300}>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href="https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new" rel="noopener noreferrer" className="btn-primary cta-pulse">
+            <a href="https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new" rel="noopener noreferrer" className="btn-primary cta-pulse">
               Get Quote Now <ArrowRight size={18} />
             </a>
             <a href="tel:+14162344298" className="btn-outline" style={{ color: "var(--beige)", borderColor: "var(--beige)" }}>
@@ -444,7 +447,9 @@ function Index() {
         <WhyUs />
         <Testimonials />
         <MapSection />
+        <AreasServed />
         <Blog />
+
         <FinalCTA />
       </main>
       <Footer />

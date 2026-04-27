@@ -14,8 +14,11 @@ import {
 // Assets
 import heroImg from "@/assets/hero-grinder.jpg";
 import beforeImg from "@/assets/before-stump.jpg";
-import afterImg from "@/assets/after-clean.jpg";
-import crewImg from "@/assets/crew.jpg";
+import rootRemovalImg from "@/assets/root-removal-final.png";
+import emergencyImg from "@/assets/emergency-storm.png";
+import cleanLawnImg from "@/assets/after-clean.jpg";
+
+
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -27,7 +30,7 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
 });
 
-const QUOTE_URL = "https://clienthub.getjobber.com/hubs/103765d3-7b15-4cf6-bb79-479c6cf53279/public/requests/2030549/new";
+const QUOTE_URL = "https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new";
 
 const SERVICE_ITEMS = [
   {
@@ -46,27 +49,20 @@ const SERVICE_ITEMS = [
     tagline: "Landscape Protection",
     desc: "Exposed roots can damage foundations, crack driveways, and create trip hazards. We safely extract surface and lateral roots while preserving your lawn's health.",
     features: ["Surface root extraction", "Foundation safety", "Lawn preservation", "Hazard reduction"],
-    image: beforeImg,
+    image: rootRemovalImg,
   },
   {
     id: "debris-cleanup",
     icon: Sparkles,
-    title: "Debris Cleanup",
-    tagline: "Zero-Mess Guarantee",
+    title: "Cleanup, Topsoil Backfilling & Levelling",
+    tagline: "Zero-Mess Solution",
     desc: "We don't just leave a pile of chips. Our team provides full haul-away services, backfilling with clean topsoil and leaving your yard ready for immediate replanting.",
-    features: ["Full chip haul-away", "Topsoil backfilling", "Site restoration", "Clean workmanship"],
-    image: afterImg,
+    features: ["Chip bagging or haul-away", "Topsoil backfilling", "Site restoration", "Topsoil leveling & grading"],
+    image: cleanLawnImg,
   },
-  {
-    id: "emergency-service",
-    icon: Zap,
-    title: "Emergency Service",
-    tagline: "Storm Response",
-    desc: "Storm damage doesn't wait. We provide priority emergency response for fallen trees and uprooted stumps that block driveways or pose immediate risks.",
-    features: ["24/7 Availability", "Fast response", "Safe clearing", "Insurance-ready"],
-    image: crewImg,
-  },
+
 ];
+
 
 
 
