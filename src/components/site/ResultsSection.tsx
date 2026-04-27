@@ -12,8 +12,9 @@ export function ResultsSection() {
           <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Drag to see the transformation</h2>
         </Reveal>
         <Reveal delay={150}>
-          <BeforeAfter before={afterImg} after={beforeImg} />
+          <BeforeAfter before={beforeImg} after={afterImg} />
         </Reveal>
+
         <Reveal delay={350} className="text-center mt-6">
           <p className="text-charcoal/70 italic">
             See the transformation — from problem stump to clean yard.

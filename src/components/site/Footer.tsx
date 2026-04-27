@@ -21,11 +21,14 @@ export function Footer() {
         <div>
           <h4 className="font-display text-sm tracking-widest uppercase text-[var(--beige)]">Quick Links</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/70">
-            <li><Link to="/" hash="services" className="hover:text-white">Services</Link></li>
-            <li><Link to="/" hash="results" className="hover:text-white">Results</Link></li>
+            <li><Link to="/services" className="hover:text-white">Services</Link></li>
+            <li><Link to="/gallery" className="hover:text-white">Gallery</Link></li>
+            <li><Link to="/areas-we-serve" className="hover:text-white">Areas We Serve</Link></li>
+            <li><Link to="/about" className="hover:text-white">About Us</Link></li>
             <li><Link to="/" hash="testimonials" className="hover:text-white">Reviews</Link></li>
           </ul>
         </div>
+
         <div>
           <h4 className="font-display text-sm tracking-widest uppercase text-[var(--beige)]">Services</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/70">
