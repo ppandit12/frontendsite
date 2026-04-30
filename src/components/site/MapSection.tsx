@@ -4,11 +4,9 @@ import { useState } from "react";
 import mapVisual from "@/assets/service-area-map.png";
 
 const markers = [
-  { x: 35, y: 45, label: "High Park" },
-  { x: 45, y: 55, label: "Mimico" },
-  { x: 65, y: 65, label: "Port Credit" },
-  { x: 30, y: 50, label: "Islington" },
-  { x: 40, y: 40, label: "Swansea" },
+  { x: 42, y: 45, label: "Toronto" },
+  { x: 32, y: 52, label: "Etobicoke" },
+  { x: 60, y: 62, label: "Mississauga" },
 ];
 
 
@@ -24,7 +22,7 @@ export function MapSection() {
           <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Coverage</span>
           <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Service Area Boundary</h2>
           <p className="mt-4 text-muted-foreground">
-            We primarily serve the historic canopies of Central & South Etobicoke, Mississauga, and High Park, 
+            We primarily serve Toronto, Etobicoke, and Mississauga, 
             maintaining prompt and professional service within our established boundaries.
           </p>
         </Reveal>
@@ -128,15 +126,15 @@ export function MapSection() {
         
         <Reveal delay={200} className="mt-12">
           <div className="flex flex-wrap justify-center gap-3">
-            {[ ...neighborhoods].map((loc) => (
+            {["Toronto", "Etobicoke", "Mississauga"].map((loc) => (
               <div key={loc} className="py-2.5 px-4 rounded-xl bg-white/50 border border-[var(--brown)]/10 text-primary font-bold text-[10px] sm:text-xs uppercase tracking-wider shadow-sm hover:bg-white transition-colors">
                 {loc}
               </div>
             ))}
           </div>
           <p className="mt-8 text-center text-sm text-muted-foreground max-w-2xl mx-auto italic">
-            Don't see your neighborhood? We primarily focus on the historic canopies of Central & South Etobicoke, 
-            Mississauga, and High Park to ensure prompt service. For large-scale projects north of the 401, 
+            Don't see your neighborhood? We primarily focus on Toronto, 
+            Etobicoke, and Mississauga to ensure prompt service. For large-scale projects north of the 401, 
             please contact us for a custom quote.
           </p>
         </Reveal>

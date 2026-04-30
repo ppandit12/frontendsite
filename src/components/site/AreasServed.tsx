@@ -2,35 +2,9 @@ import { Reveal } from "./Reveal";
 import { MapPin } from "lucide-react";
 
 const REGIONS = [
-  {
-    name: "West Toronto",
-    areas: [
-      "Baby Point", "Bloor West Village", "High Park", "High Park North", 
-      "Lambton", "Parkdale", "Roncesvalles", "Runnymede", "Swansea", 
-      "The Junction", "West Bend"
-    ]
-  },
-  {
-    name: "Etobicoke",
-    areas: [
-      "Alderwood", "Chestnut Hills", "Eatonville", "Edenbridge", "Eringate", 
-      "Glen Agar", "Humber Bay", "Humber Heights - Westmount", "Humber Valley", 
-      "Islington", "Kingsview Village", "The Kingsway", "Lambton Mills", 
-      "Long Branch", "Markland Wood", "Mimico", "New Toronto", "Norseman Heights", 
-      "Old Mill", "Princess-Rosethorn", "The Queensway", "Richview", 
-      "Royal York Gardens", "Stonegate", "Sunnylea", "Thorncrest Village", 
-      "West Deane Park", "The West Mall", "The Westway", "Willowridge"
-    ]
-  },
-  {
-    name: "Mississauga",
-    areas: [
-      "Applewood", "Birchwood", "Clarkson", "Cooksville", "Dixie", "Erindale", 
-      "Glen Leven", "Lakeview", "Lorne Park", "Mineola", "Mississauga Rd", 
-      "Mississauga Valley", "Park Royal", "Port Credit", "Rattray Park Estates", 
-      "Rockwood Village", "Sheridan", "Sherwood Forrest"
-    ]
-  }
+  { name: "Toronto" },
+  { name: "Etobicoke" },
+  { name: "Mississauga" }
 ];
 
 export function AreasServed() {
@@ -45,12 +19,12 @@ export function AreasServed() {
           <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Where We Work</span>
           <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Areas We Serve</h2>
           <p className="mt-4 text-muted-foreground">
-            We provide professional stump grinding services across West Toronto, Etobicoke, and Mississauga. 
+            We provide professional stump grinding services across Toronto, Etobicoke, and Mississauga. 
             Don't see your neighborhood? Give us a call.
           </p>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <div className="flex flex-wrap justify-center gap-8 lg:gap-12">
           {REGIONS.map((region, ridx) => (
             <Reveal key={region.name} delay={ridx * 150} className="flex flex-col">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-primary/10">
@@ -61,24 +35,14 @@ export function AreasServed() {
                   {region.name}
                 </h3>
               </div>
-              <ul className="grid grid-cols-1 gap-y-2.5">
-                {region.areas.map((area) => (
-                  <li key={area} className="flex items-center gap-2 group cursor-default">
-                    <div className="w-1.5 h-1.5 rounded-full bg-brown/40 transition-all duration-300 group-hover:bg-brown group-hover:scale-125" />
-                    <span className="text-charcoal/80 text-[15px] font-medium transition-colors group-hover:text-primary">
-                      {area}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </Reveal>
           ))}
         </div>
 
         <Reveal delay={600} className="mt-16 text-center max-w-3xl mx-auto">
           <p className="text-charcoal/70 leading-relaxed italic">
-            Don't see your neighborhood? We primarily focus on the historic canopies of Central & South Etobicoke, 
-            Mississauga, and High Park to ensure prompt service. For large-scale projects north of the 401, 
+            Don't see your neighborhood? We primarily focus on the historic canopies of Toronto, 
+            Etobicoke, and Mississauga to ensure prompt service. For large-scale projects north of the 401, 
             please contact us for a custom quote.
           </p>
         </Reveal>

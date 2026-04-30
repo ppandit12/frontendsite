@@ -24,29 +24,29 @@ const SERVICE_AREAS = [
   {
     city: "West Toronto",
     neighborhoods: [
-      "Baby Point", "Bloor West Village", "High Park", "High Park North", 
-      "Lambton", "Parkdale", "Roncesvalles", "Runnymede", "Swansea", 
+      "Baby Point", "Bloor West Village", "High Park", "High Park North",
+      "Lambton", "Parkdale", "Roncesvalles", "Runnymede", "Swansea",
       "The Junction", "West Bend"
     ],
   },
   {
     city: "Etobicoke",
     neighborhoods: [
-      "Alderwood", "Chestnut Hills", "Eatonville", "Edenbridge", "Eringate", 
-      "Glen Agar", "Humber Bay", "Humber Heights - Westmount", "Humber Valley", 
-      "Islington", "Kingsview Village", "The Kingsway", "Lambton Mills", 
-      "Long Branch", "Markland Wood", "Mimico", "New Toronto", "Norseman Heights", 
-      "Old Mill", "Princess-Rosethorn", "The Queensway", "Richview", 
-      "Royal York Gardens", "Stonegate", "Sunnylea", "Thorncrest Village", 
+      "Alderwood", "Chestnut Hills", "Eatonville", "Edenbridge", "Eringate",
+      "Glen Agar", "Humber Bay", "Humber Heights - Westmount", "Humber Valley",
+      "Islington", "Kingsview Village", "The Kingsway", "Lambton Mills",
+      "Long Branch", "Markland Wood", "Mimico", "New Toronto", "Norseman Heights",
+      "Old Mill", "Princess-Rosethorn", "The Queensway", "Richview",
+      "Royal York Gardens", "Stonegate", "Sunnylea", "Thorncrest Village",
       "West Deane Park", "The West Mall", "The Westway", "Willowridge"
     ],
   },
   {
     city: "Mississauga",
     neighborhoods: [
-      "Applewood", "Birchwood", "Clarkson", "Cooksville", "Dixie", "Erindale", 
-      "Glen Leven", "Lakeview", "Lorne Park", "Mineola", "Mississauga Rd", 
-      "Mississauga Valley", "Park Royal", "Port Credit", "Rattray Park Estates", 
+      "Applewood", "Birchwood", "Clarkson", "Cooksville", "Dixie", "Erindale",
+      "Glen Leven", "Lakeview", "Lorne Park", "Mineola", "Mississauga Rd",
+      "Mississauga Valley", "Park Royal", "Port Credit", "Rattray Park Estates",
       "Rockwood Village", "Sheridan", "Sherwood Forrest"
     ],
   },
@@ -72,7 +72,7 @@ function AreasPage() {
             }}
           />
           <WoodChips count={15} />
-          
+
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div
               initial={{ y: -200, opacity: 0 }}
@@ -86,7 +86,7 @@ function AreasPage() {
                 Areas We Serve
               </h1>
               <p className="mt-8 text-lg text-foreground/80 max-w-2xl mx-auto">
-                Providing professional stump grinding and yard restoration across the 
+                Providing professional stump grinding and yard restoration across the
                 Greater Toronto Area and beyond. Find your neighborhood below.
               </p>
             </motion.div>
@@ -130,8 +130,8 @@ function AreasPage() {
             <Reveal>
               <h2 className="text-4xl sm:text-6xl uppercase font-display mb-8">Not on the list?</h2>
               <p className="text-xl text-white/60 mb-12 italic">
-                Don't see your neighborhood? We primarily focus on the historic canopies of Central & South Etobicoke, 
-                Mississauga, and High Park to ensure prompt service. For large-scale projects north of the 401, 
+                Don't see your neighborhood? We primarily focus on the historic canopies of Central & South Etobicoke,
+                Mississauga, and High Park to ensure prompt service. For large-scale projects north of the 401,
                 please contact us for a custom quote.
               </p>
 

@@ -4,7 +4,7 @@ import {
   Phone, ArrowRight, CheckCircle2, Star, MapPin, Trees, Scissors,
   Sparkles, Zap, ShieldCheck, Clock, Facebook, Instagram, Twitter,
 } from "lucide-react";
-import heroImg from "@/assets/Hero Section Image.png";
+import heroImg from "@/assets/apex stumps.png";
 import beforeImg from "@/assets/before-stump.jpg";
 import afterImg from "@/assets/after-clean.jpg";
 import crewImg from "@/assets/why-us-team.png";
@@ -96,13 +96,13 @@ function Hero() {
             zero-mess workmanship, and a yard you’ll actually want to walk barefoot on.
           </p>
           <div
-            className="mt-8 flex flex-wrap gap-3 opacity-0"
+            className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 opacity-0"
             style={{ animation: "fade-up 0.7s ease forwards", animationDelay: "0.85s" }}
           >
-            <a href="https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new" rel="noopener noreferrer" className="btn-primary">
+            <a href="https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new" rel="noopener noreferrer" className="btn-primary justify-center">
               Get Quote Now <ArrowRight size={18} />
             </a>
-            <a href="tel:+14162344298" className="btn-outline">
+            <a href="tel:+14162344298" className="btn-outline justify-center">
               <Phone size={16} /> Call Now
             </a>
           </div>
@@ -168,9 +168,9 @@ function Services() {
           <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">What We Do</span>
           <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Quick service highlights</h2>
         </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {items.map((it, i) => (
-            <a href="/services" key={it.title}>
+            <a href="/services" key={it.title} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm">
               <Reveal delay={i * 150} className="hover-lift group rounded-2xl bg-card border-2 border-[var(--brown)]/15 p-7 shadow-[var(--shadow-card)] h-full">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
                   <it.icon size={24} />
@@ -447,7 +447,6 @@ function Index() {
         <WhyUs />
         <Testimonials />
         <MapSection />
-        <AreasServed />
         <Blog />
 
         <FinalCTA />
