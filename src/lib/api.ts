@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '';
+const API_BASE = API_URL 
+  ? `${API_URL.replace(/\/$/, '')}/api` 
+  : 'http://localhost:5000/api';
 
 export async function fetchContent(slug: string) {
   const res = await fetch(`${API_BASE}/content/${slug}`);
