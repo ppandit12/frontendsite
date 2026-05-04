@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useContent } from "@/hooks/use-content";
 
-const QUOTE_URL = "https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new";
+const DEFAULT_QUOTE_URL = "https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new";
 
-const NAV_LINKS = [
+const DEFAULT_NAV_LINKS = [
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/gallery", label: "Gallery" },
@@ -16,6 +17,20 @@ const NAV_LINKS = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+
+  const { content } = useContent("navbar", {
+    phone: "(416) 234-4298",
+    phoneLink: "tel:+14162344298",
+    quoteUrl: DEFAULT_QUOTE_URL,
+    links: DEFAULT_NAV_LINKS,
+    logoUrl: "",
+  });
+
+  const navLinks = content?.links || DEFAULT_NAV_LINKS;
+  const quoteUrl = content?.quoteUrl || DEFAULT_QUOTE_URL;
+  const phone = content?.phone || "(416) 234-4298";
+  const phoneLink = content?.phoneLink || "tel:+14162344298";
+  const logoSrc = content?.logoUrl || logo;
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -37,12 +52,12 @@ export function Header() {
       <header className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-[color-mix(in_oklab,var(--background)_80%,transparent)] border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
           <Link to="/" className="flex items-center" aria-label="Apex Stump Grinding & Removal">
-            <img src={logo} alt="Apex Stump Grinding & Removal" className="h-20 w-auto" />
+            <img src={logoSrc} alt="Apex Stump Grinding & Removal" className="h-20 w-auto" />
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            {NAV_LINKS.map((link) =>
+            {navLinks.map((link: any) =>
               link.hash ? (
                 <Link key={link.label} to={link.to} hash={link.hash} className="hover:text-primary transition">
                   {link.label}
@@ -53,13 +68,13 @@ export function Header() {
                 </Link>
               )
             )}
-            <a href={QUOTE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">Get Quote Now</a>
+            <a href={quoteUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">Get Quote Now</a>
           </nav>
 
           <div className="flex items-center gap-4">
             {/* Phone – hidden on very small, visible sm+ */}
-            <a href="tel:+14162344298" className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[var(--brown)]">
-              <Phone size={16} /> (416) 234-4298
+            <a href={phoneLink} className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-[var(--brown)]">
+              <Phone size={16} /> {phone}
             </a>
 
             {/* Hamburger – visible below md */}
@@ -100,7 +115,7 @@ export function Header() {
           style={{ maxHeight: "calc(100vh - 7rem)" }}
         >
           <div className="flex flex-col py-4">
-            {NAV_LINKS.map((link, i) => (
+            {navLinks.map((link: any, i: number) => (
               <Link
                 key={link.label}
                 to={link.to}
@@ -114,7 +129,7 @@ export function Header() {
             ))}
 
             <a
-              href={QUOTE_URL}
+              href={quoteUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
@@ -128,17 +143,17 @@ export function Header() {
 
             {/* Phone CTA */}
             <a
-              href="tel:+14162344298"
+              href={phoneLink}
               className="flex items-center gap-3 px-6 py-4 text-base font-bold text-[var(--brown)]"
             >
               <Phone size={18} />
-              (416) 234-4298
+              {phone}
             </a>
 
             {/* Quote button */}
             <div className="px-6 pb-4">
               <a
-                href={QUOTE_URL}
+                href={quoteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary w-full justify-center text-center"

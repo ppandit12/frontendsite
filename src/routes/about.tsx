@@ -4,6 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { ShieldCheck, Clock, Zap, Star } from "lucide-react";
 import crewImg from "@/assets/why-us-team.png";
+import { useContent } from "@/hooks/use-content";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -16,6 +17,52 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const { content } = useContent("about");
+
+  const heroContent = content?.hero || {
+    tagline: 'Our Story',
+    headline: 'Rugged Modern',
+    headlineLine2: 'Stump Grinding Experts',
+    subtitle: "We started with a simple mission: to provide the most reliable, efficient, and clean stump removal service in the region. Today, we're proud to be the first choice for homeowners and property managers alike.",
+  };
+
+  const valuesContent = content?.values || {
+    sectionTitle: 'Our Values',
+    values: [
+      {
+        icon: 'ShieldCheck',
+        title: 'Integrity First',
+        desc: "We do what we say we'll do. No hidden fees, no surprises, just honest hard work.",
+      },
+      {
+        icon: 'Clock',
+        title: 'Punctuality',
+        desc: 'Your time is valuable. We arrive on schedule and complete jobs efficiently.',
+      },
+      {
+        icon: 'Zap',
+        title: 'Modern Equipment',
+        desc: 'We invest in the latest industrial-grade grinders to ensure the best results with minimal impact.',
+      },
+    ],
+  };
+
+  const trustContent = content?.trust || {
+    headline: 'Built on Trust',
+    subtitle: "Every stump we grind is a commitment to the quality and care we provide to our community. We're fully insured and stand behind every job we complete.",
+    rating: '5.0',
+    ratingText: 'Rated 5.0 by hundreds of locals',
+  };
+
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'ShieldCheck': return ShieldCheck;
+      case 'Clock': return Clock;
+      case 'Zap': return Zap;
+      default: return ShieldCheck;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -23,53 +70,40 @@ function AboutPage() {
         <section className="py-24 px-6">
           <div className="max-w-7xl mx-auto">
             <Reveal className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Our Story</span>
+              <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{heroContent.tagline}</span>
               <h1 className="mt-4 text-5xl sm:text-6xl font-display text-primary uppercase leading-tight">
-                Rugged Modern <br /> Stump Grinding Experts
+                {heroContent.headline} <br /> {heroContent.headlineLine2}
               </h1>
               <p className="mt-6 text-lg text-muted-foreground">
-                We started with a simple mission: to provide the most reliable, efficient, and clean stump removal service in the region. Today, we're proud to be the first choice for homeowners and property managers alike.
+                {heroContent.subtitle}
               </p>
             </Reveal>
 
             <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-[var(--shadow-rugged)]">
                 <img
-                  src={crewImg}
-                  alt="Our professional crew at work"
+                  src={valuesContent.teamImage || crewImg}
+                  alt={valuesContent.teamImageAlt || "Our professional crew at work"}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h2 className="text-3xl font-display text-primary uppercase mb-6">Our Values</h2>
+                <h2 className="text-3xl font-display text-primary uppercase mb-6">{valuesContent.sectionTitle}</h2>
                 <div className="space-y-8">
-                  {[
-                    {
-                      icon: ShieldCheck,
-                      title: "Integrity First",
-                      desc: "We do what we say we'll do. No hidden fees, no surprises, just honest hard work.",
-                    },
-                    {
-                      icon: Clock,
-                      title: "Punctuality",
-                      desc: "Your time is valuable. We arrive on schedule and complete jobs efficiently.",
-                    },
-                    {
-                      icon: Zap,
-                      title: "Modern Equipment",
-                      desc: "We invest in the latest industrial-grade grinders to ensure the best results with minimal impact.",
-                    },
-                  ].map((val, i) => (
-                    <Reveal key={val.title} delay={i * 150} className="flex gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                        <val.icon size={24} />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-xl text-charcoal">{val.title}</h3>
-                        <p className="text-muted-foreground">{val.desc}</p>
-                      </div>
-                    </Reveal>
-                  ))}
+                  {valuesContent.values.map((val: any, i: number) => {
+                    const Icon = getIcon(val.icon);
+                    return (
+                      <Reveal key={val.title} delay={i * 150} className="flex gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                          <Icon size={24} />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-xl text-charcoal">{val.title}</h3>
+                          <p className="text-muted-foreground">{val.desc}</p>
+                        </div>
+                      </Reveal>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -77,18 +111,16 @@ function AboutPage() {
             <section className="bg-charcoal rounded-3xl p-12 text-white relative overflow-hidden">
                <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
                <div className="relative z-10 text-center max-w-2xl mx-auto">
-                 <h2 className="text-4xl font-display uppercase mb-6">Built on Trust</h2>
+                 <h2 className="text-4xl font-display uppercase mb-6">{trustContent.headline}</h2>
                  <p className="text-white/70 text-lg mb-8">
-                   Every stump we grind is a commitment to the quality and care we provide to our community. We're fully insured and stand behind every job we complete.
+                   {trustContent.subtitle}
                  </p>
                  <div className="flex justify-center gap-2 text-[var(--beige)]">
-                    <Star className="fill-current" />
-                    <Star className="fill-current" />
-                    <Star className="fill-current" />
-                    <Star className="fill-current" />
-                    <Star className="fill-current" />
+                    {Array.from({ length: parseFloat(trustContent.rating) || 5 }).map((_, i) => (
+                      <Star key={i} className="fill-current" />
+                    ))}
                  </div>
-                 <p className="mt-4 font-bold tracking-widest uppercase text-sm">Rated 5.0 by hundreds of locals</p>
+                 <p className="mt-4 font-bold tracking-widest uppercase text-sm">{trustContent.ratingText}</p>
                </div>
             </section>
           </div>

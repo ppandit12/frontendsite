@@ -4,6 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { ResultsSection } from "@/components/site/ResultsSection";
 import { ImageGrid } from "@/components/site/ImageGrid";
 import { Reveal } from "@/components/site/Reveal";
+import { useContent } from "@/hooks/use-content";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -16,6 +17,14 @@ export const Route = createFileRoute("/gallery")({
 });
 
 function GalleryPage() {
+  const { content } = useContent("gallery");
+
+  const headerContent = content?.header || {
+    tagline: 'Our Portfolio',
+    headline: 'Work Gallery',
+    subtitle: 'Browse through our recent projects and see the difference professional grinding makes.',
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -23,19 +32,19 @@ function GalleryPage() {
         <section className="py-12 px-6 bg-beige/30">
           <div className="max-w-7xl mx-auto">
             <Reveal className="text-center max-w-3xl mx-auto mb-4">
-              <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Our Portfolio</span>
+              <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{headerContent.tagline}</span>
               <h1 className="mt-4 text-5xl sm:text-6xl font-display text-primary uppercase leading-tight">
-                Work Gallery
+                {headerContent.headline}
               </h1>
               <p className="mt-6 text-lg text-muted-foreground">
-                Browse through our recent projects and see the difference professional grinding makes.
+                {headerContent.subtitle}
               </p>
             </Reveal>
           </div>
         </section>
 
-        <ResultsSection />
-        <ImageGrid />
+        <ResultsSection data={content?.results} />
+        <ImageGrid data={content?.images} />
       </main>
       <Footer />
     </div>

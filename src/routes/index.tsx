@@ -4,11 +4,9 @@ import {
   Phone, ArrowRight, CheckCircle2, Star, MapPin, Trees, Scissors,
   Sparkles, Zap, ShieldCheck, Clock, Facebook, Instagram, Twitter,
 } from "lucide-react";
-import heroImg from "@/assets/apex stumps.png";
-import beforeImg from "@/assets/before-stump.jpg";
-import afterImg from "@/assets/after-clean.jpg";
-import crewImg from "@/assets/why-us-team.png";
-import blogImg from "@/assets/blog-1.jpg";
+import heroImgDefault from "@/assets/apex stumps.png";
+import crewImgDefault from "@/assets/why-us-team.png";
+import blogImgDefault from "@/assets/blog-1.jpg";
 import logoUrl from "@/assets/logo.png?url";
 import { Reveal } from "@/components/site/Reveal";
 import { WoodChips } from "@/components/site/WoodChips";
@@ -19,7 +17,7 @@ import { Footer } from "@/components/site/Footer";
 import { StickyCTA } from "@/components/site/StickyCTA";
 import { MapSection } from "@/components/site/MapSection";
 import { AreasServed } from "@/components/site/AreasServed";
-
+import { useContent } from "@/hooks/use-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,15 +34,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const HEADLINE = "Professional Stump Grinding That Restores Your Yard";
-
-function AnimatedHeadline() {
+function AnimatedHeadline({ headline }: { headline: string }) {
   return (
     <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-primary uppercase">
-      {HEADLINE.split(" ").map((word, wi) => (
+      {headline.split(" ").map((word, wi) => (
         <span key={wi} className="inline-block whitespace-nowrap mr-3">
           {word.split("").map((ch, ci) => {
-            const idx = HEADLINE.split(" ").slice(0, wi).join(" ").length + ci + wi;
+            const idx = headline.split(" ").slice(0, wi).join(" ").length + ci + wi;
             return (
               <span
                 key={ci}
@@ -64,7 +60,35 @@ function AnimatedHeadline() {
   );
 }
 
-function Hero() {
+function Hero({ data }: { data: any }) {
+  const content = data || {
+    tagline: 'Local Stump Specialists',
+    headline: 'Professional Stump Grinding That Restores Your Yard',
+    subheadline: "Fast, safe, and affordable stump removal services you can trust. Same-day quotes, zero-mess workmanship, and a yard you’ll actually want to walk barefoot on.",
+    ctaButtons: [
+      { label: 'Get Quote Now', url: 'https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new', type: 'primary', icon: 'ArrowRight' },
+      { label: 'Call Now', url: 'tel:+14162344298', type: 'outline', icon: 'Phone' },
+    ],
+    stickers: [
+      { label: 'Same-Day Service', icon: 'Clock', tilt: -3 },
+      { label: 'Fully Insured', icon: 'ShieldCheck', tilt: 2 },
+      { label: 'Fast Response', icon: 'Zap', tilt: -2 },
+    ],
+    heroImageAlt: 'Industrial stump grinder removing a tree stump',
+    heroImage: '',
+  };
+
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'ArrowRight': return ArrowRight;
+      case 'Phone': return Phone;
+      case 'Clock': return Clock;
+      case 'ShieldCheck': return ShieldCheck;
+      case 'Zap': return Zap;
+      default: return ArrowRight;
+    }
+  };
+
   return (
     <section id="top" className="relative min-h-screen pt-24 overflow-hidden">
       {/* Layered background */}
@@ -85,47 +109,47 @@ function Hero() {
             className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-[var(--brown)] uppercase mb-6 opacity-0"
             style={{ animation: "fade-up 0.5s ease forwards", animationDelay: "0.05s" }}
           >
-            <Sparkles size={14} /> Local Stump Specialists
+            <Sparkles size={14} /> {content.tagline}
           </span>
-          <AnimatedHeadline />
+          <AnimatedHeadline headline={content.headline} />
           <p
             className="mt-6 text-lg text-foreground/80 max-w-xl opacity-0"
             style={{ animation: "fade-up 0.7s ease forwards", animationDelay: "0.6s" }}
           >
-            Fast, safe, and affordable stump removal services you can trust. Same-day quotes,
-            zero-mess workmanship, and a yard you’ll actually want to walk barefoot on.
+            {content.subheadline}
           </p>
           <div
             className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 opacity-0"
             style={{ animation: "fade-up 0.7s ease forwards", animationDelay: "0.85s" }}
           >
-            <a href="https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new" rel="noopener noreferrer" className="btn-primary justify-center">
-              Get Quote Now <ArrowRight size={18} />
-            </a>
-            <a href="tel:+14162344298" className="btn-outline justify-center">
-              <Phone size={16} /> Call Now
-            </a>
+            {content.ctaButtons.map((btn: any, i: number) => {
+              const Icon = getIcon(btn.icon);
+              return (
+                <a key={i} href={btn.url} rel={btn.url.startsWith('http') ? "noopener noreferrer" : undefined} target={btn.url.startsWith('http') ? "_blank" : undefined} className={`btn-${btn.type} justify-center`}>
+                  {btn.type === 'outline' ? <><Icon size={16} /> {btn.label}</> : <>{btn.label} <Icon size={18} /></>}
+                </a>
+              );
+            })}
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            {[
-              { icon: Clock, label: "Same-Day Service", tilt: -3, delay: 1.0 },
-              { icon: ShieldCheck, label: "Fully Insured", tilt: 2, delay: 1.15 },
-              { icon: Zap, label: "Fast Response", tilt: -2, delay: 1.3 },
-            ].map((s) => (
-              <span
-                key={s.label}
-                className="sticker"
-                style={
-                  {
-                    "--tilt": `${s.tilt}deg`,
-                    animationDelay: `${s.delay}s`,
-                  } as React.CSSProperties
-                }
-              >
-                <s.icon size={14} className="text-[var(--brown)]" /> {s.label}
-              </span>
-            ))}
+            {content.stickers.map((s: any, i: number) => {
+              const Icon = getIcon(s.icon);
+              return (
+                <span
+                  key={s.label}
+                  className="sticker"
+                  style={
+                    {
+                      "--tilt": `${s.tilt}deg`,
+                      animationDelay: `${1.0 + i * 0.15}s`,
+                    } as React.CSSProperties
+                  }
+                >
+                  <Icon size={14} className="text-[var(--brown)]" /> {s.label}
+                </span>
+              );
+            })}
           </div>
         </div>
 
@@ -136,8 +160,8 @@ function Hero() {
             style={{ animation: "fade-up 1s ease forwards", animationDelay: "0.3s" }}
           >
             <img
-              src={heroImg}
-              alt="Industrial stump grinder removing a tree stump"
+              src={content.heroImage || heroImgDefault}
+              alt={content.heroImageAlt}
               className="w-full h-full object-cover"
               width={1280}
               height={1280}
@@ -152,51 +176,73 @@ function Hero() {
   );
 }
 
+function Services({ data }: { data: any }) {
+  const content = data || {
+    tagline: 'What We Do',
+    headline: 'Quick service highlights',
+    items: [
+      { icon: 'Trees', title: 'Stump Grinding', desc: 'Industrial-grade grinders pulverize stumps below grade.' },
+      { icon: 'Scissors', title: 'Root Removal', desc: 'Extract surface and lateral roots that ruin lawns.' },
+      { icon: 'Sparkles', title: 'Cleanup, Topsoil Backfilling & Levelling', desc: 'Chip bagging or haul-away, soil backfill, and expert grading.' },
+    ],
+  };
 
-function Services() {
-  const items = [
-    { icon: Trees, title: "Stump Grinding", desc: "Industrial-grade grinders pulverize stumps below grade." },
-    { icon: Scissors, title: "Root Removal", desc: "Extract surface and lateral roots that ruin lawns." },
-    { icon: Sparkles, title: "Cleanup, Topsoil Backfilling & Levelling", desc: "Chip bagging or haul-away, soil backfill, and expert grading." },
-  ];
-
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'Trees': return Trees;
+      case 'Scissors': return Scissors;
+      case 'Sparkles': return Sparkles;
+      default: return Trees;
+    }
+  };
 
   return (
     <section id="services" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">What We Do</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Quick service highlights</h2>
+          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{content.tagline}</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">{content.headline}</h2>
         </Reveal>
         <div className="flex flex-wrap justify-center gap-6">
-          {items.map((it, i) => (
-            <a href="/services" key={it.title} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm">
-              <Reveal delay={i * 150} className="hover-lift group rounded-2xl bg-card border-2 border-[var(--brown)]/15 p-7 shadow-[var(--shadow-card)] h-full">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
-                  <it.icon size={24} />
-                </div>
-                <h3 className="font-display text-xl text-charcoal uppercase tracking-wide">{it.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.desc}</p>
-              </Reveal>
-            </a>
-          ))}
+          {content.items.map((it: any, i: number) => {
+            const Icon = getIcon(it.icon);
+            return (
+              <a href="/services" key={it.title} className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] max-w-sm">
+                <Reveal delay={i * 150} className="hover-lift group rounded-2xl bg-card border-2 border-[var(--brown)]/15 p-7 shadow-[var(--shadow-card)] h-full">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="font-display text-xl text-charcoal uppercase tracking-wide">{it.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.desc}</p>
+                </Reveal>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
+function WhyUs({ data }: { data: any }) {
+  const content = data || {
+    tagline: 'Why Choose Us',
+    headline: 'Built rugged.',
+    headlineLine2: 'Run honest.',
+    subtitle: "We're a local crew obsessed with leaving your yard better than we found it.",
+    reasons: [
+      'Professional commercial-grade equipment',
+      'Affordable, transparent pricing',
+      'Fully insured & bonded crew',
+      'Clean workmanship — zero mess left',
+      'Fast completion, often same day',
+    ],
+    imageAlt: 'Professional stump grinding crew',
+  };
 
-function WhyUs() {
-  const reasons = [
-    "Professional commercial-grade equipment",
-    "Affordable, transparent pricing",
-    "Fully insured & bonded crew",
-    "Clean workmanship — zero mess left",
-    "Fast completion, often same day",
-  ];
   const imgRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
+
   useEffect(() => {
     const onScroll = () => {
       const el = imgRef.current;
@@ -209,19 +255,20 @@ function WhyUs() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   return (
     <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <Reveal>
-            <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Why Choose Us</span>
-            <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Built rugged. <br />Run honest.</h2>
+            <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{content.tagline}</span>
+            <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">{content.headline} <br />{content.headlineLine2}</h2>
             <p className="mt-4 text-muted-foreground max-w-md">
-              We’re a local crew obsessed with leaving your yard better than we found it.
+              {content.subtitle}
             </p>
           </Reveal>
           <ul className="mt-8 space-y-4">
-            {reasons.map((r, i) => (
+            {content.reasons.map((r: string, i: number) => (
               <Reveal key={r} as="li" delay={200 + i * 150} className="flex items-start gap-3">
                 <CheckCircle2 className="text-primary flex-shrink-0 mt-0.5" size={22} />
                 <span className="text-base text-charcoal font-medium">{r}</span>
@@ -231,8 +278,8 @@ function WhyUs() {
         </div>
         <div ref={imgRef} className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-[var(--shadow-rugged)]">
           <img
-            src={crewImg}
-            alt="Professional stump grinding crew"
+            src={crewImgDefault}
+            alt={content.imageAlt}
             className="absolute inset-0 w-full h-[115%] object-cover"
             style={{ transform: `translateY(${offset}px) scale(1.05)`, transition: "transform 0.1s linear" }}
             loading="lazy"
@@ -246,16 +293,22 @@ function WhyUs() {
   );
 }
 
-function Process() {
-  const steps = [
-    { n: "01", title: "Request Quote", desc: "Send pictures or address." },
-    { n: "02", title: "Site Inspection", desc: "Free on-site walkthrough." },
-    { n: "03", title: "Grinding", desc: "Below-grade pulverization." },
-    { n: "04", title: "Cleanup", desc: "Full debris haul-away." },
-    { n: "05", title: "Final Walk", desc: "You sign off, we leave clean." },
-  ];
+function Process({ data }: { data: any }) {
+  const content = data || {
+    tagline: 'How It Works',
+    headline: 'Our process',
+    steps: [
+      { n: '01', title: 'Request Quote', desc: 'Send pictures or address.' },
+      { n: '02', title: 'Site Inspection', desc: 'Free on-site walkthrough.' },
+      { n: '03', title: 'Grinding', desc: 'Below-grade pulverization.' },
+      { n: '04', title: 'Cleanup', desc: 'Full debris haul-away.' },
+      { n: '05', title: 'Final Walk', desc: 'You sign off, we leave clean.' },
+    ],
+  };
+
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -266,13 +319,14 @@ function Process() {
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
   return (
     <section id="process" className="py-24 bg-charcoal text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
       <div className="max-w-7xl mx-auto px-6 relative">
         <Reveal className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-bold tracking-[0.25em] text-[var(--beige)] uppercase">How It Works</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl uppercase">Our process</h2>
+          <span className="text-xs font-bold tracking-[0.25em] text-[var(--beige)] uppercase">{content.tagline}</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl uppercase">{content.headline}</h2>
         </Reveal>
         <div ref={ref} className="relative">
           {/* line */}
@@ -283,7 +337,7 @@ function Process() {
             />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-            {steps.map((s, i) => (
+            {content.steps.map((s: any, i: number) => (
               <div
                 key={s.n}
                 className="relative text-center opacity-0"
@@ -306,27 +360,33 @@ function Process() {
   );
 }
 
-function Testimonials() {
-  const data = [
-    { name: "Sarah M.", text: "They ground out a massive oak stump in under an hour. Zero damage to my lawn. Wild.", rating: 5 },
-    { name: "Derek T.", text: "Same-day quote, next-day done. Crew was professional and the cleanup was spotless.", rating: 5 },
-    { name: "Maria L.", text: "Honestly the best contractor experience I've had. Fair price, no surprises.", rating: 5 },
-    { name: "Jamal R.", text: "Three stumps gone, grass already growing back. Would absolutely call again.", rating: 5 },
-  ];
+function Testimonials({ data }: { data: any }) {
+  const content = data || {
+    tagline: 'Word On The Street',
+    headline: 'What customers say',
+    testimonials: [
+      { name: 'Sarah M.', text: "They ground out a massive oak stump in under an hour. Zero damage to my lawn. Wild.", rating: 5 },
+      { name: 'Derek T.', text: 'Same-day quote, next-day done. Crew was professional and the cleanup was spotless.', rating: 5 },
+      { name: 'Maria L.', text: "Honestly the best contractor experience I've had. Fair price, no surprises.", rating: 5 },
+      { name: 'Jamal R.', text: 'Three stumps gone, grass already growing back. Would absolutely call again.', rating: 5 },
+    ],
+  };
+
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setIdx((i) => (i + 1) % data.length), 5000);
+    const t = setInterval(() => setIdx((i) => (i + 1) % content.testimonials.length), 5000);
     return () => clearInterval(t);
-  }, [paused, data.length]);
+  }, [paused, content.testimonials.length]);
 
   return (
     <section id="testimonials" className="py-24 bg-background">
       <div className="max-w-6xl mx-auto px-6">
         <Reveal className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">Word On The Street</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">What customers say</h2>
+          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{content.tagline}</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">{content.headline}</h2>
         </Reveal>
         <div
           className="grid md:grid-cols-3 gap-6"
@@ -334,16 +394,18 @@ function Testimonials() {
           onMouseLeave={() => setPaused(false)}
         >
           {[0, 1, 2].map((off) => {
-            const t = data[(idx + off) % data.length];
+            if (content.testimonials.length === 0) return null;
+            const t = content.testimonials[(idx + off) % content.testimonials.length];
+            if (!t) return null;
             return (
               <Reveal key={`${idx}-${off}`} delay={off * 120} className="hover-lift">
-                <div className="bubble">
+                <div className="bubble h-full flex flex-col">
                   <div className="flex gap-1 mb-3">
-                    {Array.from({ length: t.rating }).map((_, i) => (
+                    {Array.from({ length: t.rating || 5 }).map((_, i) => (
                       <Star key={i} size={16} className="fill-[var(--brown)] text-[var(--brown)]" />
                     ))}
                   </div>
-                  <p className="text-charcoal leading-relaxed">“{t.text}”</p>
+                  <p className="text-charcoal leading-relaxed flex-grow">“{t.text}”</p>
                   <div className="mt-4 font-bold text-primary">— {t.name}</div>
                 </div>
               </Reveal>
@@ -355,26 +417,32 @@ function Testimonials() {
   );
 }
 
+function Blog({ data }: { data: any }) {
+  const content = data || {
+    tagline: 'From The Field',
+    headline: 'Insights & guides',
+    posts: [
+      { title: "How long does stump grinding take?", excerpt: "What to expect from a typical residential job, start to finish." },
+      { title: "Stump removal vs. grinding", excerpt: "Which method is right for your yard and budget." },
+      { title: "After grinding: what comes next?", excerpt: "Tips for replanting grass and reusing wood mulch." },
+    ]
+  };
 
-function Blog() {
-  const posts = [
-    { title: "How long does stump grinding take?", excerpt: "What to expect from a typical residential job, start to finish." },
-    { title: "Stump removal vs. grinding", excerpt: "Which method is right for your yard and budget." },
-    { title: "After grinding: what comes next?", excerpt: "Tips for replanting grass and reusing wood mulch." },
-  ];
+  const posts = content.posts;
+
   return (
     <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">From The Field</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">Insights & guides</h2>
+          <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{content.tagline}</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">{content.headline}</h2>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-6">
           {posts.map((p, i) => (
             <Reveal key={p.title} delay={i * 150} className="group hover-lift rounded-2xl overflow-hidden bg-card border border-border">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={blogImg}
+                  src={p.image || blogImgDefault}
                   alt={p.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
@@ -382,9 +450,9 @@ function Blog() {
                   height={768}
                 />
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col h-full">
                 <h3 className="font-display text-xl text-primary uppercase leading-tight">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{p.excerpt}</p>
+                <p className="mt-2 text-sm text-muted-foreground flex-grow">{p.excerpt}</p>
                 <a href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[var(--brown)]">
                   Read more
                   <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
@@ -398,7 +466,25 @@ function Blog() {
   );
 }
 
-function FinalCTA() {
+function FinalCTA({ data }: { data: any }) {
+  const content = data || {
+    headline: 'Ready to remove',
+    headlineLine2: 'that stump?',
+    subtitle: 'Get fast service from local experts. Free quotes, no pressure.',
+    ctaButtons: [
+      { label: 'Get Quote Now', url: 'https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new', type: 'primary', icon: 'ArrowRight' },
+      { label: '(416) 234-4298', url: 'tel:+14162344298', type: 'outline', icon: 'Phone' },
+    ],
+  };
+
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'ArrowRight': return ArrowRight;
+      case 'Phone': return Phone;
+      default: return ArrowRight;
+    }
+  };
+
   return (
     <section id="quote" className="relative py-28 bg-charcoal text-white overflow-hidden">
       <div
@@ -414,20 +500,29 @@ function FinalCTA() {
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <Reveal>
           <h2 className="font-display text-5xl sm:text-6xl uppercase leading-[1.05]">
-            Ready to remove <br /> that stump?
+            {content.headline} <br /> {content.headlineLine2}
           </h2>
         </Reveal>
         <Reveal delay={150}>
-          <p className="mt-5 text-white/70 text-lg">Get fast service from local experts. Free quotes, no pressure.</p>
+          <p className="mt-5 text-white/70 text-lg">{content.subtitle}</p>
         </Reveal>
         <Reveal delay={300}>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a href="https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new" rel="noopener noreferrer" className="btn-primary cta-pulse">
-              Get Quote Now <ArrowRight size={18} />
-            </a>
-            <a href="tel:+14162344298" className="btn-outline" style={{ color: "var(--beige)", borderColor: "var(--beige)" }}>
-              <Phone size={16} /> (416) 234-4298
-            </a>
+            {content.ctaButtons.map((btn: any, i: number) => {
+              const Icon = getIcon(btn.icon);
+              return (
+                <a 
+                  key={i} 
+                  href={btn.url} 
+                  rel={btn.url.startsWith('http') ? "noopener noreferrer" : undefined} 
+                  target={btn.url.startsWith('http') ? "_blank" : undefined} 
+                  className={btn.type === 'primary' ? "btn-primary cta-pulse" : "btn-outline"}
+                  style={btn.type === 'outline' ? { color: "var(--beige)", borderColor: "var(--beige)" } : {}}
+                >
+                  {btn.type === 'outline' ? <><Icon size={16} /> {btn.label}</> : <>{btn.label} <Icon size={18} /></>}
+                </a>
+              );
+            })}
           </div>
         </Reveal>
       </div>
@@ -435,21 +530,21 @@ function FinalCTA() {
   );
 }
 
-
 function Index() {
+  const { content } = useContent("home");
+
   return (
     <div className="min-h-screen">
       <Header />
       <main>
-        <Hero />
-        <Services />
-        <ResultsSection />
-        <WhyUs />
-        <Testimonials />
-        <MapSection />
-        <Blog />
-
-        <FinalCTA />
+        <Hero data={content?.hero} />
+        <Services data={content?.services} />
+        <ResultsSection data={content?.results} />
+        <WhyUs data={content?.whyUs} />
+        <Testimonials data={content?.testimonials} />
+        <MapSection data={content?.map} />
+        <Blog data={content?.blog} />
+        <FinalCTA data={content?.cta} />
       </main>
       <Footer />
       <StickyCTA />
