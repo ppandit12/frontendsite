@@ -3,6 +3,7 @@ import { BeforeAfter } from "@/components/site/BeforeAfter";
 import beforeImg from "@/assets/before-stump.jpg";
 import afterImg from "@/assets/after-clean.jpg";
 import { useContent } from "@/hooks/use-content";
+import { getImageUrl } from "@/lib/api";
 
 export function ResultsSection({ data }: { data: any }) {
   const content = data || {
@@ -21,7 +22,7 @@ export function ResultsSection({ data }: { data: any }) {
           <h2 className="mt-3 text-4xl sm:text-5xl text-primary uppercase">{content.headline}</h2>
         </Reveal>
         <Reveal delay={150}>
-          <BeforeAfter before={content.beforeImage || beforeImg} after={content.afterImage || afterImg} />
+          <BeforeAfter before={getImageUrl(content.beforeImage) || beforeImg} after={getImageUrl(content.afterImage) || afterImg} />
         </Reveal>
 
         <Reveal delay={350} className="text-center mt-6">

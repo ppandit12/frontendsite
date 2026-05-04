@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { useContent } from "@/hooks/use-content";
 import { useEffect, useState } from "react";
-import { fetchContent } from "@/lib/api";
+import { fetchContent, getImageUrl } from "@/lib/api";
 
 import img1 from "@/assets/gallery-1.png";
 import img2 from "@/assets/gallery-2.png";
@@ -43,7 +43,7 @@ export function ImageGrid({ data }: { data: any }) {
 
   const images = content.images.map((img: any, i: number) => ({
     ...img,
-    src: img.url || defaultImages[i % defaultImages.length].src,
+    src: getImageUrl(img.url) || defaultImages[i % defaultImages.length].src,
   }));
 
   return (

@@ -5,6 +5,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { ShieldCheck, Clock, Zap, Star } from "lucide-react";
 import crewImg from "@/assets/why-us-team.png";
 import { useContent } from "@/hooks/use-content";
+import { getImageUrl } from "@/lib/api";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -82,7 +83,7 @@ function AboutPage() {
             <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-[var(--shadow-rugged)]">
                 <img
-                  src={valuesContent.teamImage || crewImg}
+                  src={getImageUrl(valuesContent.teamImage) || crewImg}
                   alt={valuesContent.teamImageAlt || "Our professional crew at work"}
                   className="w-full h-full object-cover"
                 />

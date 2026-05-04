@@ -15,4 +15,14 @@ export async function fetchBlogPosts() {
   return res.json();
 }
 
+export const BACKEND_URL = API_URL ? API_URL.replace(/\/$/, '') : 'http://localhost:5000';
+
+export function getImageUrl(url: string) {
+  if (!url) return '';
+  // Fix legacy URLs that might have been saved with http://localhost:5000
+  const cleanUrl = url.replace('http://localhost:5000', '');
+  if (cleanUrl.startsWith('http')) return cleanUrl;
+  return `${BACKEND_URL}${cleanUrl}`;
+}
+
 export { API_BASE };

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Trees, Facebook, Instagram, Twitter } from "lucide-react";
 import { useContent } from "@/hooks/use-content";
+import { getImageUrl } from "@/lib/api";
 
 const DEFAULT_FOOTER = {
   brandName: "STUMPWORKS",
@@ -51,8 +52,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
           <div className="flex items-center gap-2 font-display text-2xl text-[var(--beige)]">
-            {footer.logoUrl ? (
-              <img src={footer.logoUrl} alt={footer.brandName} className="h-12 w-auto object-contain" />
+            {getImageUrl(footer.logoUrl) ? (
+              <img src={getImageUrl(footer.logoUrl)} alt={footer.brandName} className="h-12 w-auto object-contain" />
             ) : (
               <><Trees size={32} /> {footer.brandName}</>
             )}

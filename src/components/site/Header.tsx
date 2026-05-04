@@ -3,6 +3,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useContent } from "@/hooks/use-content";
+import { getImageUrl } from "@/lib/api";
 
 const DEFAULT_QUOTE_URL = "https://clienthub.getjobber.com/hubs/e26093ba-9938-4ec5-b46f-0e1ed9977087/public/requests/4622022/new";
 
@@ -30,7 +31,7 @@ export function Header() {
   const quoteUrl = content?.quoteUrl || DEFAULT_QUOTE_URL;
   const phone = content?.phone || "(416) 234-4298";
   const phoneLink = content?.phoneLink || "tel:+14162344298";
-  const logoSrc = content?.logoUrl || logo;
+  const logoSrc = getImageUrl(content?.logoUrl) || logo;
 
   // Close mobile menu on route change
   useEffect(() => {

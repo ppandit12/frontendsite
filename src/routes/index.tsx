@@ -18,6 +18,7 @@ import { StickyCTA } from "@/components/site/StickyCTA";
 import { MapSection } from "@/components/site/MapSection";
 import { AreasServed } from "@/components/site/AreasServed";
 import { useContent } from "@/hooks/use-content";
+import { getImageUrl } from "@/lib/api";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -160,7 +161,7 @@ function Hero({ data }: { data: any }) {
             style={{ animation: "fade-up 1s ease forwards", animationDelay: "0.3s" }}
           >
             <img
-              src={content.heroImage || heroImgDefault}
+              src={getImageUrl(content.heroImage) || heroImgDefault}
               alt={content.heroImageAlt}
               className="w-full h-full object-cover"
               width={1280}
@@ -442,7 +443,7 @@ function Blog({ data }: { data: any }) {
             <Reveal key={p.title} delay={i * 150} className="group hover-lift rounded-2xl overflow-hidden bg-card border border-border">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={p.image || blogImgDefault}
+                  src={getImageUrl(p.image) || blogImgDefault}
                   alt={p.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
