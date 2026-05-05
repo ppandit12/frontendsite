@@ -5,7 +5,7 @@ import {
   Sparkles, Zap, ShieldCheck, Clock, Facebook, Instagram, Twitter,
 } from "lucide-react";
 import heroImgDefault from "@/assets/apex stumps.png";
-import crewImgDefault from "@/assets/why-us-team.png";
+import crewImgDefault from "@/assets/imageService.png";
 import blogImgDefault from "@/assets/blog-1.jpg";
 import logoUrl from "@/assets/logo.png?url";
 import { Reveal } from "@/components/site/Reveal";
@@ -258,8 +258,8 @@ function WhyUs({ data }: { data: any }) {
   }, []);
 
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+    <section className="py-32 bg-background overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <Reveal>
             <span className="text-xs font-bold tracking-[0.25em] text-[var(--brown)] uppercase">{content.tagline}</span>
@@ -277,9 +277,9 @@ function WhyUs({ data }: { data: any }) {
             ))}
           </ul>
         </div>
-        <div ref={imgRef} className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-[var(--shadow-rugged)]">
+        <div ref={imgRef} className="relative aspect-square lg:aspect-[4/5] xl:aspect-square w-full rounded-3xl overflow-hidden shadow-[var(--shadow-rugged)] lg:scale-110 xl:scale-125 transition-transform duration-500">
           <img
-            src={crewImgDefault}
+            src={getImageUrl(content.image) || crewImgDefault}
             alt={content.imageAlt}
             className="absolute inset-0 w-full h-[115%] object-cover"
             style={{ transform: `translateY(${offset}px) scale(1.05)`, transition: "transform 0.1s linear" }}

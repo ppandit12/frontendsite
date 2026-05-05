@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/site/Reveal";
 import { BeforeAfter } from "@/components/site/BeforeAfter";
-import beforeImg from "@/assets/before-stump.jpg";
-import afterImg from "@/assets/after-clean.jpg";
+import beforeImg from "@/assets/after-clean.jpg";
+import afterImg from "@/assets/before-stump.jpg";
 import { useContent } from "@/hooks/use-content";
 import { getImageUrl } from "@/lib/api";
 

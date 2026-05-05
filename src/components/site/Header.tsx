@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo1.png";
 import { useContent } from "@/hooks/use-content";
 import { getImageUrl } from "@/lib/api";
 
@@ -94,25 +94,22 @@ export function Header() {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-30 transition-all duration-300 md:hidden ${
-          mobileOpen ? "visible" : "invisible"
-        }`}
+        className={`fixed inset-0 z-30 transition-all duration-300 md:hidden ${mobileOpen ? "visible" : "invisible"
+          }`}
       >
         {/* Backdrop */}
         <div
-          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-            mobileOpen ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${mobileOpen ? "opacity-100" : "opacity-0"
+            }`}
           onClick={() => setMobileOpen(false)}
         />
 
         {/* Slide-down panel */}
         <nav
-          className={`absolute top-24 inset-x-0 mx-4 rounded-2xl bg-white shadow-2xl border border-border overflow-hidden transition-all duration-300 origin-top ${
-            mobileOpen
-              ? "opacity-100 scale-y-100 translate-y-0"
-              : "opacity-0 scale-y-95 -translate-y-4 pointer-events-none"
-          }`}
+          className={`absolute top-24 inset-x-0 mx-4 rounded-2xl bg-white shadow-2xl border border-border overflow-hidden transition-all duration-300 origin-top ${mobileOpen
+            ? "opacity-100 scale-y-100 translate-y-0"
+            : "opacity-0 scale-y-95 -translate-y-4 pointer-events-none"
+            }`}
           style={{ maxHeight: "calc(100vh - 7rem)" }}
         >
           <div className="flex flex-col py-4">
